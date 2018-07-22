@@ -15,6 +15,10 @@
 /*
  * Create a list that holds all of your cards
  */
+/*let allCards = [
+    ""
+]*/
+let toggleCards = [];
 
 
 /*
@@ -52,9 +56,28 @@ function shuffle(array) {
  */
 const memoryCards = document.querySelectorAll('.card');
 
+/* display card's symbol*/
 for (memoryCard of memoryCards) {
     memoryCard.addEventListener('click', function(){
-        /* display card's symbol*/
-        /* add card to a list of open cards*/
-     })
+        const evtTgt = event.target; 
+        if (evtTgt.classList.contains('card') && toggleCards.length < 2) {
+            toggleCard(evtTgt);
+            addCardToList(evtTgt);
+        }
+ /*       if (evtTgt.classList.contains('open')){
+            function addCardToList(evtTgt);
+        }
+
+*/
+    });
 }
+function toggleCard(evtTgt){
+    evtTgt.classList.toggle('open');
+    evtTgt.classList.toggle('show');
+}
+
+/*function addCardToList(evtTgt) {
+    toggleCard.push(evtTgt);
+} 
+
+/* if array already contains card match then toggle card and match to 'match' */
