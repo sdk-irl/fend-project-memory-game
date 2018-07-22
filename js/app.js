@@ -18,7 +18,7 @@
 /*let allCards = [
     ""
 ]*/
-let toggleCards = [];
+let toggledCardsArray = [];
 
 
 /*
@@ -60,15 +60,13 @@ const memoryCards = document.querySelectorAll('.card');
 for (memoryCard of memoryCards) {
     memoryCard.addEventListener('click', function(){
         const evtTgt = event.target; 
-        if (evtTgt.classList.contains('card') && toggleCards.length < 2) {
+        if (evtTgt.classList.contains('card') && toggledCardsArray.length < 2) {
             toggleCard(evtTgt);
             addCardToList(evtTgt);
+            if (toggledCardsArray.length === 2) {
+                checkCardMatch();
+            }
         }
- /*       if (evtTgt.classList.contains('open')){
-            function addCardToList(evtTgt);
-        }
-
-*/
     });
 }
 function toggleCard(evtTgt){
@@ -76,8 +74,26 @@ function toggleCard(evtTgt){
     evtTgt.classList.toggle('show');
 }
 
-/*function addCardToList(evtTgt) {
-    toggleCard.push(evtTgt);
+function addCardToList(evtTgt) {
+    toggledCardsArray.push(evtTgt);
 } 
 
-/* if array already contains card match then toggle card and match to 'match' */
+function checkCardMatch() {
+    if (toggledCardsArray[0].firstElementChild.className 
+    /* if toggled cards match, change to match color, toggle class to match, and empty array */
+        === toggledCardsArray[1].firstElementChild.className) {
+        toggledCardsArray[0].classList.add('match');
+        toggledCardsArray[1].classList.add('match');
+        toggledCardsArray = [];
+        /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
+    }
+    else {
+    /* wait a couple seconds for player to see cards, then toggles cards, then resets card array; */
+       setTimeout(function timeoutID() {
+            toggleCard(toggledCardsArray[0]);
+            toggleCard(toggledCardsArray[1]);
+            toggledCardsArray = [];
+            } , 1250);
+        /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
+    }
+}
