@@ -13,6 +13,7 @@ function shuffleCards() {
     }
 }
 shuffleCards();
+/* Initialize by query selecting a click event listener on fa fa-repeat */
 
 /*
  * Display the cards on the page
@@ -54,10 +55,11 @@ memoryCardDeck.addEventListener('click', function(){
     if (checkClick(evtTgt)) {
         toggleCard(evtTgt);
         addCardToList(evtTgt);
-        /* When two cards in array, check for matching set */
+        /* When two cards in array, check for matching set and increment number of moves in game */
         if (toggledCardsArray.length === 2) {
             checkCardMatch();
             incrementMoves();
+            decreaseStars()
         }
     }
 });
@@ -98,18 +100,26 @@ function checkCardMatch() {
       */
     }
     else {
-    /* Wait a couple seconds for player to see cards, then toggles cards, then resets card array; */
+    /* Wait for player to see cards, then toggles cards, then resets card array; */
        setTimeout(function timeoutID() {
             toggleCard(toggledCardsArray[0]);
             toggleCard(toggledCardsArray[1]);
             toggledCardsArray = [];
-            } , 1250);
+            } , 900);
         /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
     }
 }
-
+/* Function to increment the number of moves in the game */
 function incrementMoves() {
     moves++;
     let moveNum = document.querySelector('.moves');
     moveNum.textContent = moves;
+}
+
+function decreaseStars() {
+    let starsPanel = document.querySelector('.stars');
+    if (moves===7 || moves===14) {
+        let star = starsPanel.querySelector('li');
+        starsPanel.removeChild(star);
+    }
 }
