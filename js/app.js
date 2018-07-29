@@ -1,7 +1,8 @@
 
 let toggledCardsArray = [];
 const memoryCardDeck = document.querySelector('.deck');
-
+let moves = 0;
+ 
 /* List that holds all of your cards to pass into the shuffle function */
 function shuffleCards() {
     const cards = document.querySelectorAll('.deck li');
@@ -56,6 +57,7 @@ memoryCardDeck.addEventListener('click', function(){
         /* When two cards in array, check for matching set */
         if (toggledCardsArray.length === 2) {
             checkCardMatch();
+            incrementMoves();
         }
     }
 });
@@ -104,4 +106,10 @@ function checkCardMatch() {
             } , 1250);
         /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
     }
+}
+
+function incrementMoves() {
+    moves++;
+    let moveNum = document.querySelector('.moves');
+    moveNum.textContent = moves;
 }
