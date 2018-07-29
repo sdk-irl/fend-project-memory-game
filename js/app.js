@@ -13,11 +13,13 @@
  */
 
 /*
- * Create a list that holds all of your cards
+ * Create a list that holds all of your cards to pass into the shuffle function
  */
-/*let allCards = [
+/*let allCards = [ 
     ""
-]*/
+]
+array.from() turns node list into an array
+*/
 let toggledCardsArray = [];
 
 
@@ -43,7 +45,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -54,21 +55,30 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-const memoryCards = document.querySelectorAll('.card');
+const memoryCardDeck = document.querySelector('.deck');
 
 /* display card's symbol*/
-for (memoryCard of memoryCards) {
-    memoryCard.addEventListener('click', function(){
-        const evtTgt = event.target; 
-        if (evtTgt.classList.contains('card') && toggledCardsArray.length < 2) {
-            toggleCard(evtTgt);
-            addCardToList(evtTgt);
-            if (toggledCardsArray.length === 2) {
-                checkCardMatch();
-            }
+
+memoryCardDeck.addEventListener('click', function(){
+    const evtTgt = event.target; 
+    if (checkClick(evtTgt)) {
+        toggleCard(evtTgt);
+        addCardToList(evtTgt);
+        if (toggledCardsArray.length === 2) {
+            checkCardMatch();
         }
-    });
-}
+    }
+});
+
+function checkClick(evtTgt) {
+    return (
+        (evtTgt.classList.contains('card')
+        && (!evtTgt.classList.contains('match')
+        && toggledCardsArray.length < 2
+        && !toggledCardsArray.includes(evtTgt))
+        )
+    )}
+
 function toggleCard(evtTgt){
     evtTgt.classList.toggle('open');
     evtTgt.classList.toggle('show');
@@ -85,7 +95,11 @@ function checkCardMatch() {
         toggledCardsArray[0].classList.add('match');
         toggledCardsArray[1].classList.add('match');
         toggledCardsArray = [];
-        /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
+        /* add css animation https://css-tricks.com/almanac/properties/a/animation/ 
+        .element {
+  transform: translate(0 px, -10px)}
+  @keyframes tileJump {
+      */
     }
     else {
     /* wait a couple seconds for player to see cards, then toggles cards, then resets card array; */
