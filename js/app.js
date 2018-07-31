@@ -2,8 +2,8 @@
 let toggledCardsArray = [];
 const memoryCardDeck = document.querySelector('.deck');
 let moves = 0;
- 
-/* List that holds all of your cards to pass into the shuffle function */
+
+/* List that holds all cards to pass into the shuffle function */
 function shuffleCards() {
     const cards = document.querySelectorAll('.deck li');
     let cardArray = Array.from(cards);
@@ -12,7 +12,6 @@ function shuffleCards() {
         memoryCardDeck.appendChild(card);
     }
 }
-shuffleCards();
 /* Initialize by query selecting a click event listener on fa fa-repeat */
 
 /*
@@ -36,7 +35,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /* * If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
@@ -46,7 +44,6 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-/* display card's symbol*/
 
 /* Set up the event listener for a card */
 memoryCardDeck.addEventListener('click', function(){
@@ -116,6 +113,7 @@ function incrementMoves() {
     moveNum.textContent = moves;
 }
 
+/* Function to decrement number of stars */
 function decreaseStars() {
     let starsPanel = document.querySelector('.stars');
     if (moves===7 || moves===14) {
@@ -123,3 +121,28 @@ function decreaseStars() {
         starsPanel.removeChild(star);
     }
 }
+/* Function to run clock */
+function startClock() {
+    let seconds = 0;
+    let minutes = 0;
+    const clock = document.querySelector('.clock');
+    /* interval to increment clock */
+    const timer = setInterval(function() {
+        seconds++;
+        if (seconds >= 60) {
+            minutes++;
+            seconds = 0;
+        }
+        /* Convert minutes to 00:00 and display on page */
+        const displayMinutes = minutes < 10 ? "0" + minutes : "" + minutes;
+        const displaySeconds = seconds < 10 ? "0" + seconds: "" + seconds;
+        clock.innerHTML = displayMinutes + ":" + displaySeconds;
+    }, 1000);
+}
+/* Function to run all the functions! */
+function doEverything() {
+    startClock()
+    shuffleCards();
+}
+/* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
+setTimeout(doEverything, 1000);
