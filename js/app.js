@@ -1,7 +1,22 @@
+/* * If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    = + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    = + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
+/*
+ * Display the cards on the page
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
 
 let toggledCardsArray = [];
-const memoryCardDeck = document.querySelector('.deck');
 let moves = 0;
+const memoryCardDeck = document.querySelector('.deck');
+/* move this and memoryCardDeck selector function into another function and call from doEverything */
 
 /* List that holds all cards to pass into the shuffle function */
 function shuffleCards() {
@@ -13,12 +28,32 @@ function shuffleCards() {
     }
 }
 /* Initialize by query selecting a click event listener on fa fa-repeat */
+function initialize() {
+    const repeat = document.querySelector('.fa-repeat');
+    repeat.addEventListener('click', function(){
+        console.log('i work');
+        resetStars();
+        resetClock();
+        resetTiles();
+    })
+}
+function resetStars() {
+    const starsPanel = document.querySelector('.stars');
+        const stars = starsPanel.children;
+         while (stars.length < 3) {
+            let childEl1 = document.createElement('li');
+            let childEl2 = childEl1.createElement('i');
+            let star = childEl2.classList.add('fa fa-star');    
+            stars.appendChild(star);
+}
 
-/*
- * Display the cards on the page
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+function resetClock() {
+    console.log('resetClock works!');
+}
+
+function resetTiles() {
+    console.log('resetTiles works!');
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -34,16 +69,6 @@ function shuffle(array) {
 
     return array;
 }
-
-/* * If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    = + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    = + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
 
 /* Set up the event listener for a card */
 memoryCardDeck.addEventListener('click', function(){
@@ -84,8 +109,8 @@ function addCardToList(evtTgt) {
 
 /* Function to see if cards match */
 function checkCardMatch() {
-    if (toggledCardsArray[0].firstElementChild.className 
     /* if toggled cards match, change to match color, toggle class to match, and empty array */
+    if (toggledCardsArray[0].firstElementChild.className 
         === toggledCardsArray[1].firstElementChild.className) {
         toggledCardsArray[0].classList.add('match');
         toggledCardsArray[1].classList.add('match');
@@ -115,7 +140,7 @@ function incrementMoves() {
 
 /* Function to decrement number of stars */
 function decreaseStars() {
-    let starsPanel = document.querySelector('.stars');
+    const starsPanel = document.querySelector('.stars');
     if (moves===7 || moves===14) {
         let star = starsPanel.querySelector('li');
         starsPanel.removeChild(star);
@@ -143,6 +168,7 @@ function startClock() {
 function doEverything() {
     startClock()
     shuffleCards();
+    initialize();
 }
 /* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
 setTimeout(doEverything, 1000);
