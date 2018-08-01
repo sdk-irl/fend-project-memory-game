@@ -17,22 +17,12 @@ let toggledCardsArray = [];
 let moves = 0;
 const memoryCardDeck = document.querySelector('.deck');
 let clockTimer;
-/* move this and memoryCardDeck selector function into another function and call from doEverything */
 
-/* List that holds all cards to pass into the shuffle function */
-function shuffleCards() {
-    const cards = document.querySelectorAll('.deck li');
-    let cardArray = Array.from(cards);
-    let shuffledCards = shuffle(cardArray);
-    for (card of shuffledCards) {
-        memoryCardDeck.appendChild(card);
-    }
-}
+
 /* Initialize game including stars, clock, and tiles when restart button is pushed */
 function initialize() {
     const repeat = document.querySelector('.fa-repeat');
     repeat.addEventListener('click', function(){
-        console.log('i work');
         resetStars();
         resetClock();
         resetTiles();
@@ -58,7 +48,27 @@ function resetClock() {
 }
 
 function resetTiles() {
-    console.log('resetTiles works!');
+    const cardOpenShow = memoryCardDeck.querySelectorAll('.open.show');
+    const cardMatches = memoryCardDeck.querySelectorAll('.open.show.match');
+    for (card of cardOpenShow) {
+        card.classList.toggle('open');
+        card.classList.toggle('show');
+    }
+    for (match of cardMatches) {
+        match.classList.toggle('match');
+    }
+}
+
+/* move this and memoryCardDeck selector function into another function and call from doEverything */
+
+/* List that holds all cards to pass into the shuffle function */
+function shuffleCards() {
+    const cards = document.querySelectorAll('.deck li');
+    let cardArray = Array.from(cards);
+    let shuffledCards = shuffle(cardArray);
+    for (card of shuffledCards) {
+        memoryCardDeck.appendChild(card);
+    }
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
