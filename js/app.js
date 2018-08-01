@@ -16,6 +16,7 @@
 let toggledCardsArray = [];
 let moves = 0;
 const memoryCardDeck = document.querySelector('.deck');
+let clockTimer;
 /* move this and memoryCardDeck selector function into another function and call from doEverything */
 
 /* List that holds all cards to pass into the shuffle function */
@@ -56,6 +57,8 @@ function resetStars() {
 
 function resetClock() {
     console.log('resetClock works!');
+    clearInterval(clockTimer);
+    startClock();
 }
 
 function resetTiles() {
@@ -159,7 +162,7 @@ function startClock() {
     let minutes = 0;
     const clock = document.querySelector('.clock');
     /* interval to increment clock */
-    const timer = setInterval(function() {
+    clockTimer = setInterval(function() {
         seconds++;
         if (seconds >= 60) {
             minutes++;
