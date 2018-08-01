@@ -27,7 +27,7 @@ function shuffleCards() {
         memoryCardDeck.appendChild(card);
     }
 }
-/* Initialize by query selecting a click event listener on fa fa-repeat */
+/* Initialize game including stars, clock, and tiles when restart button is pushed */
 function initialize() {
     const repeat = document.querySelector('.fa-repeat');
     repeat.addEventListener('click', function(){
@@ -39,12 +39,19 @@ function initialize() {
 }
 function resetStars() {
     const starsPanel = document.querySelector('.stars');
-        const stars = starsPanel.children;
-         while (stars.length < 3) {
-            let childEl1 = document.createElement('li');
-            let childEl2 = childEl1.createElement('i');
-            let star = childEl2.classList.add('fa fa-star');    
-            stars.appendChild(star);
+    while (starsPanel.firstChild) {
+        starsPanel.removeChild(starsPanel.firstChild);
+    }
+    for (i=0; i<3; i++) {
+        let childEl1 = document.createElement('li');
+        console.log(childEl1);
+        let childEl2 = document.createElement('i');
+        console.log(childEl2);
+        childEl2.classList.add('fa', 'fa-star');
+        childEl1.appendChild(childEl2);
+        starsPanel.appendChild(childEl1);
+        console.log(starsPanel); 
+    }
 }
 
 function resetClock() {
@@ -171,4 +178,4 @@ function doEverything() {
     initialize();
 }
 /* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
-setTimeout(doEverything, 1000);
+setTimeout(doEverything(), 1000);
