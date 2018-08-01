@@ -45,18 +45,14 @@ function resetStars() {
     }
     for (i=0; i<3; i++) {
         let childEl1 = document.createElement('li');
-        console.log(childEl1);
         let childEl2 = document.createElement('i');
-        console.log(childEl2);
         childEl2.classList.add('fa', 'fa-star');
         childEl1.appendChild(childEl2);
         starsPanel.appendChild(childEl1);
-        console.log(starsPanel); 
     }
 }
 
 function resetClock() {
-    console.log('resetClock works!');
     clearInterval(clockTimer);
     startClock();
 }
