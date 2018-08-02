@@ -157,7 +157,7 @@ function incrementMoves() {
 /* Function to decrement number of stars */
 function decreaseStars() {
     const starsPanel = document.querySelector('.stars');
-    if (moves===7 || moves===14) {
+    if (moves===9 || moves===15) {
         let star = starsPanel.querySelector('li');
         starsPanel.removeChild(star);
     }
@@ -180,11 +180,38 @@ function startClock() {
         clock.innerHTML = displayMinutes + ":" + displaySeconds;
     }, 1000);
 }
+
+function winModal() {
+    if (memoryCardDeck.querySelectorAll('li').length === memoryCardDeck.querySelectorAll('match').length) {
+        const numOfStars = document.querySelectorAll('.stars.li').length;
+        captureTime();
+        window.alert(printWinMessage(numOfStars)); 
+    }
+}
+
+function printWinMessage(numOfStars) {
+    const starPlural = numOfStars === 1 ? 'star' : 'stars';
+    const totalTime = captureTime();
+    let message = 'Congratulations! You won the game! \n You scored ' + numOfStars + starPlural + '! \n It took you ' + totalTime +'.';
+    console.log(message);
+}
+
+function captureTime() {
+    if (memoryCardDeck.querySelectorAll('li').length === memoryCardDeck.querySelectorAll('match').length) {
+        clearInterval(clockTimer);
+        let panelClock;
+        panelClock = document.querySelector('.stars.clock');
+        return panelClock.innerHTML;
+    }
+}
+
 /* Function to run all the functions! */
 function doEverything() {
     startClock()
     shuffleCards();
     initialize();
+    winModal();
 }
 /* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
 setTimeout(doEverything(), 1000);
+
