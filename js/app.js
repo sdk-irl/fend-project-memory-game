@@ -26,6 +26,7 @@ function initialize() {
         resetStars();
         resetClock();
         resetTiles();
+        moves = 0;
     })
 }
 function resetStars() {
@@ -97,7 +98,8 @@ memoryCardDeck.addEventListener('click', function(){
         if (toggledCardsArray.length === 2) {
             checkCardMatch();
             incrementMoves();
-            decreaseStars()
+            decreaseStars();
+            setTimeout(winModal, 10);
         }
     }
 });
@@ -182,8 +184,10 @@ function startClock() {
 }
 
 function winModal() {
-    if (memoryCardDeck.querySelectorAll('li').length === memoryCardDeck.querySelectorAll('match').length) {
-        const numOfStars = document.querySelectorAll('.stars.li').length;
+    console.log('winModal is working');
+    if (memoryCardDeck.querySelectorAll('li').length === memoryCardDeck.querySelectorAll('.match').length) {
+        console.log('winModal is working2');
+        const numOfStars = document.querySelectorAll('.stars li').length;
         captureTime();
         window.alert(printWinMessage(numOfStars)); 
     }
@@ -192,26 +196,22 @@ function winModal() {
 function printWinMessage(numOfStars) {
     const starPlural = numOfStars === 1 ? 'star' : 'stars';
     const totalTime = captureTime();
-    let message = 'Congratulations! You won the game! \n You scored ' + numOfStars + starPlural + '! \n It took you ' + totalTime +'.';
-    console.log(message);
+    let message = 'Congratulations! You won the game! \n You scored ' + numOfStars + ' ' + starPlural + '! \n It took you ' + totalTime +'.';
+    return message;
 }
 
 function captureTime() {
-    if (memoryCardDeck.querySelectorAll('li').length === memoryCardDeck.querySelectorAll('match').length) {
-        clearInterval(clockTimer);
-        let panelClock;
-        panelClock = document.querySelector('.stars.clock');
-        return panelClock.innerHTML;
-    }
+    console.log('captureTime is working');
+    clearInterval(clockTimer);
+    const panelClock = document.querySelector('.clock');
+    return panelClock.innerHTML;
 }
 
 /* Function to run all the functions! */
 function doEverything() {
-    startClock()
+    startClock();
     shuffleCards();
     initialize();
-    winModal();
 }
 /* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
-setTimeout(doEverything(), 1000);
-
+setTimeout(doEverything, 100);
