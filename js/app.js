@@ -1,23 +1,7 @@
-/* * If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    = + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    = + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-/*
- * Display the cards on the page
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 let toggledCardsArray = [];
 let moves = 0;
 const memoryCardDeck = document.querySelector('.deck');
 let clockTimer;
-
 
 /* Initialize game including stars, clock, and tiles when restart button is pushed */
 function initialize() {
@@ -29,6 +13,7 @@ function initialize() {
         moves = 0;
     })
 }
+
 function resetStars() {
     const starsPanel = document.querySelector('.stars');
     while (starsPanel.firstChild) {
@@ -59,8 +44,6 @@ function resetTiles() {
         match.classList.toggle('match');
     }
 }
-
-/* move this and memoryCardDeck selector function into another function and call from doEverything */
 
 /* List that holds all cards to pass into the shuffle function */
 function shuffleCards() {
@@ -133,11 +116,7 @@ function checkCardMatch() {
         toggledCardsArray[0].classList.add('match');
         toggledCardsArray[1].classList.add('match');
         toggledCardsArray = [];
-        /* add css animation https://css-tricks.com/almanac/properties/a/animation/ 
-        .element {
-  transform: translate(0 px, -10px)}
-  @keyframes tileJump {
-      */
+        /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
     }
     else {
     /* Wait for player to see cards, then toggles cards, then resets card array; */
@@ -149,6 +128,7 @@ function checkCardMatch() {
         /* add css animation https://css-tricks.com/almanac/properties/a/animation/ */
     }
 }
+
 /* Function to increment the number of moves in the game */
 function incrementMoves() {
     moves++;
@@ -164,6 +144,7 @@ function decreaseStars() {
         starsPanel.removeChild(star);
     }
 }
+
 /* Function to run clock */
 function startClock() {
     let seconds = 0;
@@ -213,5 +194,6 @@ function doEverything() {
     shuffleCards();
     initialize();
 }
+
 /* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
 setTimeout(doEverything, 100);

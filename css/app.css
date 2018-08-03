@@ -30,7 +30,7 @@ body {
 
 h1 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 /*
@@ -49,6 +49,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     margin: 0 0 3em;
+    object-fit: contain;
 }
 
 .deck .card {
@@ -108,9 +109,44 @@ h1 {
     cursor: pointer;
 }
 
-@media screen and (min-width: 480px) {
-    .score-panel .stars {
-        font-size: large;
+
+/* 320
+
+    .score-panel {
+        needs to be big
+        needs to have separate lines -- score panel, moves, clock need to go on separate lines
     }
 
+    750
+    grid needs to shrink
+*/
+
+@media screen and (max-width: 600px) {
+    .score-panel {
+        font-size: xx-large;
+    }
+    .container2 {
+        display: flex;
+        justify-content: center;
+        align-items: left;
+        flex-flow: row wrap;
+    }
+    .score-panel .stars, .score-panel .move-label {
+        margin-right: .5em;
+    }
+    
+}
+@media screen and (max-width: 700px) {
+    .score-panel {
+        font-size: x-large;
+    }
+}
+
+@media screen and (min-width: 601px) {
+    .score-panel {
+        font-size: medium;
+    }
+    .score-panel .stars, .score-panel .move-label {
+        margin-right: 2em;
+    }
 }
