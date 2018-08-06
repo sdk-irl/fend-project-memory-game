@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-* [What is this project](#what is this project)
+* [What is this project](#what_is_this_project)
 * [Contributing](#contributing)
 
 ## What is this project
@@ -12,10 +12,10 @@ Memory Game is a project I created for the Grow with Google Udacity FEND Nanodeg
 I included several game behavior functions that the project rubric required, including:
 * Memory game logic with randomly shuffled cards
 * Congratulations popup modal
-* Restart Button
-* Star Rating
+* Restart button
+* Star rating
 * Timer
-* Move Counter
+* Move counter
 
 The game works like the traditional concetration game, where the user flips two cards over at a time. If the cards match, they stay turned over. If not, they are flipped face down and the user flips another two, until the user can match all cards. 
 
