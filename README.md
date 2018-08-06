@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-* [What is this project](#What is this project)
+* [What is this project](#what is this project)
 * [Contributing](#contributing)
 
 ## What is this project
