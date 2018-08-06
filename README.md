@@ -3,7 +3,7 @@
 ## Table of Contents
 
 * [What is this project](#what_is_this_project)
-* [Dependencies] (#dependencies)
+* [Dependencies](#dependencies)
 * [Contributing](#contributing)
 
 ## What is this project
