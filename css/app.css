@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    /* font-family: 'Coda', cursive; */
 }
 
 .container {
@@ -38,10 +38,10 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
+    width: 440px;
+    min-height: 453px;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
+    padding: 1rem;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     display: flex;
@@ -49,12 +49,12 @@ h1 {
     justify-content: space-between;
     align-items: center;
     margin: 0 0 3em;
-    object-fit: contain;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
+    height: 83px;
+    width: 83px;
+    margin: 0.2rem 0.2rem;
     background: #2e3d49;
     font-size: 0;
     color: #ffffff;
@@ -110,43 +110,54 @@ h1 {
 }
 
 
-/* 320
-
-    .score-panel {
-        needs to be big
-        needs to have separate lines -- score panel, moves, clock need to go on separate lines
-    }
-
-    750
-    grid needs to shrink
-*/
 
 @media screen and (max-width: 600px) {
     .score-panel {
-        font-size: xx-large;
+        font-size: x-large;
     }
     .container2 {
+        padding: .25em;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: left;
         flex-flow: row wrap;
     }
-    .score-panel .stars, .score-panel .move-label {
+    .score-panel .stars, .score-panel .move-label, .score-panel .clock {
         margin-right: .5em;
     }
-    
 }
-@media screen and (max-width: 700px) {
+@media screen and (min-width: 601px) and (max-width: 800px) {
     .score-panel {
-        font-size: x-large;
+        font-size: large;
     }
 }
 
 @media screen and (min-width: 601px) {
-    .score-panel {
-        font-size: medium;
-    }
-    .score-panel .stars, .score-panel .move-label {
+    .score-panel .stars, .score-panel .move-label, .score-panel .clock {
         margin-right: 2em;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 459px) {
+    .deck {
+        width: 293px;
+        min-height: 302px;
+    }
+    .deck .card {
+        height: 55px;
+        width: 55px;
+    }
+}
+
+/* For tablets, desktops, and large screens */
+@media screen and (min-width: 750px) {
+    .deck {
+        width: 660px;
+        min-height: 680px;
+    }
+    .deck .card {
+        height: 125px;
+        width: 125px;
     }
 }
