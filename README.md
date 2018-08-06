@@ -19,6 +19,20 @@ I included several game behavior functions that the project rubric required, inc
 
 The game works like the traditional concetration game, where the user flips two cards over at a time. If the cards match, they stay turned over. If not, they are flipped face down and the user flips another two, until the user can match all cards. 
 
+## Dependencies
+
+The shuffle function in the game, which makes the shuffling of the deck random, is called the Fisher-Yates (Knuth) shuffle function from here:
+* http://stackoverflow.com/a/2450976
+
+Here is a D3 visual of how this shuffle function works, by Mike Bostock:
+* https://bost.ocks.org/mike/shuffle/
+
+Icons are from font-awesome, here:
+* https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css
+
+The font family for the page is here:
+* https://fonts.googleapis.com/css?family=Coda
+
 ## Contributing
 
 This project was submitted for a Udacity course to follow a rubric, so I won't be accepting pull requests
