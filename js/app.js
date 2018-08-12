@@ -1,17 +1,43 @@
 let toggledCardsArray = [];
 let moves = 0;
-const memoryCardDeck = document.querySelector('.deck');
+let memoryCardDeck;
 let clockTimer;
 
 /* Initialize game including stars, clock, and tiles when restart button is pushed */
 function initialize() {
     const repeat = document.querySelector('.fa-repeat');
+
+    /* Set up the event listener for a card */
+    memoryCardDeck = document.querySelector('.deck');
+    memoryCardDeck.addEventListener('click', handleCardClick);
+
+    /* Set up the event listener for the repeast button */
     repeat.addEventListener('click', function(){
         resetStars();
         resetClock();
         resetTiles();
         moves = 0;
-    })
+        displayMoves();
+    });
+}
+
+/* When a card is clicked on, do what is necessary */
+function handleCardClick(ev) {
+    const evtTgt = ev.target;
+    /* If cards meet criteria, toggle them to open, add to list */
+    if (checkClick(evtTgt)) {
+        toggleCard(evtTgt);
+        addCardToList(evtTgt);
+        /* When two cards in array, check for matching set and increment
+           number of moves in game */
+        if (toggledCardsArray.length === 2) {
+            checkCardMatch();
+            moves++;
+            displayMoves();
+            decreaseStars();
+            setTimeout(winModal, 10);
+        }
+    }
 }
 
 function resetStars() {
@@ -70,22 +96,6 @@ function shuffle(array) {
     return array;
 }
 
-/* Set up the event listener for a card */
-memoryCardDeck.addEventListener('click', function(){
-    const evtTgt = event.target; 
-    /* If cards meet criteria, toggle them to open, add to list */
-    if (checkClick(evtTgt)) {
-        toggleCard(evtTgt);
-        addCardToList(evtTgt);
-        /* When two cards in array, check for matching set and increment number of moves in game */
-        if (toggledCardsArray.length === 2) {
-            checkCardMatch();
-            incrementMoves();
-            decreaseStars();
-            setTimeout(winModal, 10);
-        }
-    }
-});
 
 /* Function to check card for match, for less than 2 cards, and not the same card */
 function checkClick(evtTgt) {
@@ -129,10 +139,9 @@ function checkCardMatch() {
     }
 }
 
-/* Function to increment the number of moves in the game */
-function incrementMoves() {
-    moves++;
-    let moveNum = document.querySelector('.moves');
+/* Function to update the display of number of moves in a game */
+function displayMoves() {
+    const moveNum = document.querySelector('.moves');
     moveNum.textContent = moves;
 }
 
@@ -169,7 +178,6 @@ function winModal() {
     if (memoryCardDeck.querySelectorAll('li').length === memoryCardDeck.querySelectorAll('.match').length) {
         console.log('winModal is working2');
         const numOfStars = document.querySelectorAll('.stars li').length;
-        captureTime();
         window.alert(printWinMessage(numOfStars)); 
     }
 }
@@ -177,7 +185,7 @@ function winModal() {
 function printWinMessage(numOfStars) {
     const starPlural = numOfStars === 1 ? 'star' : 'stars';
     const totalTime = captureTime();
-    let message = 'Congratulations! You won the game! \n You scored ' + numOfStars + ' ' + starPlural + '! \n It took you ' + totalTime +'.';
+    const message = 'Congratulations! You won the game! \n You scored ' + numOfStars + ' ' + starPlural + '! \n It took you ' + totalTime +'.';
     return message;
 }
 
@@ -190,9 +198,9 @@ function captureTime() {
 
 /* Function to run all the functions! */
 function doEverything() {
-    startClock();
-    shuffleCards();
     initialize();
+    shuffleCards();
+    startClock();
 }
 
 /* Running everything at the end and with a brief delay to prevent race conditions and soooo much frustration */
